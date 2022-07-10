@@ -4,27 +4,24 @@ import de.akrebs.web.vertx.ruby.RailsModel;
 import de.akrebs.web.vertx.ruby.RailsViewAction;
 import de.akrebs.web.vertx.ruby.ViewActionType;
 import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServerRequest;
-import io.vertx.core.http.HttpServerResponse;
 
-public class RailsViewActionRedirectImpl implements RailsViewAction {
-
-    RailsModel model;
-
+public class RailsViewActionDownloadFile implements RailsViewAction {
     @Override
     public ViewActionType getType() {
-        return ViewActionType.REDIRECT;
+        return ViewActionType.DOWNLOAD;
     }
 
     @Override
     public void setModel(RailsModel model) {
-        this.model = model;
+
     }
 
     @Override
     public Future<Boolean> render(HttpServerRequest request) {
-        HttpServerResponse response = request.response();
-        response.send("Redirect to -");
-        return null;
+        Promise<Boolean> promise = Promise.promise();
+        // TODO
+        return promise.future();
     }
 }

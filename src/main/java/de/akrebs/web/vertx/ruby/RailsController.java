@@ -6,7 +6,9 @@ import io.vertx.core.http.HttpServerRequest;
 
 public interface RailsController {
 
-    public RailsViewAction errorPage = new RailsViewActionImpl("500.html.erb");
+    default RailsViewAction getErrorPage(int httpError){
+        return new RailsViewActionImpl("500.html.erb");
+    }
 
     public Future<RailsViewAction> process(HttpServerRequest request);
 }

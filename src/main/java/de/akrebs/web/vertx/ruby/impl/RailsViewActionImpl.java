@@ -4,6 +4,7 @@ import de.akrebs.web.vertx.ruby.ErbTemplateEngine;
 import de.akrebs.web.vertx.ruby.RailsModel;
 import de.akrebs.web.vertx.ruby.RailsViewAction;
 import de.akrebs.web.vertx.ruby.ViewActionType;
+import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
@@ -36,17 +37,20 @@ public class RailsViewActionImpl implements RailsViewAction {
     }
 
     @Override
-    public Promise<Boolean> render(HttpServerRequest request) {
+    public Future<Boolean> render(HttpServerRequest request) {
         HttpServerResponse response = request.response();
+        Promise<Boolean> promise = Promise.promise();
+        // TODO take the model and complete the erb template, write the result to output stream
         try {
             //this._engine.render()
             response.setChunked(true);
-            response.write("RailsViewImpl - chunk!");
+            response.write(_erbTemplate);
             response.end();
-        }
-        catch (Exception e){
+            promise.complete(true);
+        } catch (Exception e) {
             LOG.error("An error has occurred, {}", e);
+            promise.complete(true);
         }
-        return Promise.promise();
+        return promise.future();
     }
 }

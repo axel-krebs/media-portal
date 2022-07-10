@@ -17,11 +17,11 @@ public class RailsControllerImpl implements RailsController {
 
     private static final Logger LOG = LoggerFactory.getLogger(RailsControllerImpl.class);
     final RailsModel _rm;
-    final RailsViewAction[] viewActions;
+    final RailsViewAction[] _viewActions;
 
     public RailsControllerImpl(final RailsModel rm, RailsViewAction[] viewActions) {
         this._rm = rm;
-        this.viewActions = viewActions;
+        this._viewActions = viewActions;
     }
 
     @Override
@@ -34,32 +34,18 @@ public class RailsControllerImpl implements RailsController {
             LOG.info("Request from Firefox");
         }
         // Execute 'control' logic.. async!
-        Promise<RailsModel> action = execute(params);
-        Promise<RailsViewAction> promisedView = Promise.promise();
-        action.future().compose(this::applyModelAndChoseView).onSuccess(rva -> {
-            promisedView.complete(rva);
-            LOG.info("Completed successfully!");
-        }).onFailure(error -> {
-            LOG.error("An error occurred.");
-            promisedView.complete(errorPage);
-        });
-        return promisedView.future();
+        return execute(params).future();
     }
 
-    private Promise<RailsModel> execute(Map<String, Object> params){
-        Promise<RailsModel> promise = Promise.promise();
-        // execute 'business logic' here ..
-        this._rm.apply(params);
-        promise.complete(this._rm);
-        return promise;
-    }
-
-    private Future<RailsViewAction> applyModelAndChoseView(RailsModel model){
+    private Promise<RailsViewAction> execute(Map<String, Object> params) {
         Promise<RailsViewAction> promise = Promise.promise();
-        RailsViewAction chosen = this.viewActions[1];
-        chosen.setModel(model);
-        promise.complete(chosen);
-        return promise.future();
+        // execute 'business logic' here ..
+        RailsModel m = this._rm.apply(params);
+        // which view??
+        RailsViewAction retVal = this._viewActions[0];
+        retVal.setModel(m);
+        promise.complete(retVal);
+        return promise;
     }
 
     private Map<String, Object> parseHttpRequest(HttpServerRequest request) {
