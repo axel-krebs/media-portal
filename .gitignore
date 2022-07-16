@@ -1,3 +1,6 @@
 /target/
 /.vertx/
 /.idea/
+/buildSrc/build/
+/buildSrc/.gradle/
+/.gradle/
