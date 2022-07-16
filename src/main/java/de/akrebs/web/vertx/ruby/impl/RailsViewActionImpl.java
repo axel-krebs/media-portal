@@ -1,6 +1,5 @@
 package de.akrebs.web.vertx.ruby.impl;
 
-import de.akrebs.web.vertx.ruby.ErbTemplateEngine;
 import de.akrebs.web.vertx.ruby.RailsModel;
 import de.akrebs.web.vertx.ruby.RailsViewAction;
 import de.akrebs.web.vertx.ruby.ViewActionType;
@@ -24,11 +23,8 @@ public class RailsViewActionImpl implements RailsViewAction {
 
     private String _erbTemplate;
 
-    ErbTemplateEngine _engine;
-
     public RailsViewActionImpl(String rubyScript) {
         this._erbTemplate = rubyScript;
-        this._engine = new ErbTemplateEngineImpl();
     }
 
     @Override

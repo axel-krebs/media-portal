@@ -1,25 +1,11 @@
 package de.akrebs.web;
 
-import de.akrebs.web.vertx.ruby.RailsController;
-import de.akrebs.web.vertx.ruby.RailsControllerHandler;
-import de.akrebs.web.vertx.ruby.RailsModel;
-import de.akrebs.web.vertx.ruby.RailsViewAction;
-import de.akrebs.web.vertx.ruby.impl.*;
-import io.vertx.config.ConfigRetriever;
-import io.vertx.config.ConfigRetrieverOptions;
-import io.vertx.config.ConfigStoreOptions;
-import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
-import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class PortalApp {
 
@@ -32,10 +18,10 @@ public class PortalApp {
 
     public static void main(String[] args) {
 
-        final String podName = System.getenv("HOSTNAME") != null ? System.getenv("HOSTNAME") :
-                "localhost";
         VertxOptions opts = new VertxOptions();
         Vertx vertx = Vertx.vertx(opts);
+
+        /*
         String myFileName = "deployment.json";
         ConfigRetriever retriever = ConfigRetriever.create(vertx,
                 new ConfigRetrieverOptions().addStore(new ConfigStoreOptions().setType("file").setConfig(new JsonObject().put("path", myFileName))));
@@ -43,7 +29,9 @@ public class PortalApp {
         retriever.getConfig(json -> {
             JsonObject a = json.result().getJsonObject("a");
             vertx.deployVerticle("test.rb", new DeploymentOptions().setConfig(a));
-        });
+        });*/
+        final String podName = System.getenv("HOSTNAME") != null ? System.getenv("HOSTNAME") :
+                "localhost";
 
         Router rbRouter = Router.router(vertx);
         rbRouter.get("/").handler(req -> {
@@ -52,7 +40,8 @@ public class PortalApp {
         });
 
         try {
-            applyRoR(rbRouter);
+            //applyRoR(rbRouter);
+            //WebApp.start(rbRouter);
             HttpServer server = Vertx.vertx().createHttpServer().requestHandler(rbRouter);
             // start server which automatic closes when jvm terminates
             server.listen(8080);
@@ -62,6 +51,7 @@ public class PortalApp {
         }
     }
 
+    /*
     private static void applyRoR(Router rbRouter) throws Exception {
         InputStream is = PortalApp.class.getResourceAsStream("test.html.erb");
         InputStreamReader isr = new InputStreamReader(is);
@@ -82,16 +72,17 @@ public class PortalApp {
         RailsViewAction fwdIndex = new RailsViewActionImpl("test2");
         RailsViewAction[] forwardActionViews = new RailsViewAction[]{fwdIndex};
         RailsController test2 = new RailsControllerImpl(rm2, forwardActionViews);
-        RailsViewAction rvaForward = new RailsViewActionForwardImpl(test2);
         RailsControllerHandler rc2Handler = new RailsControllerHandlerImpl(test2);
-        rbRouter.get("/test2").handler(rc2Handler);
+        rbRouter.get("/test").handler(rc2Handler);
 
         RailsViewAction rv = new RailsViewActionImpl(testScript);
+        RailsViewAction rvaForward = new RailsViewActionForwardImpl(test2);
         RailsViewAction[] viewActions = new RailsViewAction[]{rvaForward, rv};
         RailsModel rm1 = new RailsModelImpl();
         RailsController rc = new RailsControllerImpl(rm1, viewActions);
         RailsControllerHandler rcHandler = new RailsControllerHandlerImpl(rc);
 
-        rbRouter.get("/test").handler(rcHandler);
+        rbRouter.get("/test-all").handler(rcHandler);
     }
+     */
 }

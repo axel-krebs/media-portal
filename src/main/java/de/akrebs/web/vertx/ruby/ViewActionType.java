@@ -4,6 +4,5 @@ public enum ViewActionType {
     TEMPLATE,
     FORWARD,
     REDIRECT,
-
     DOWNLOAD,
 }
