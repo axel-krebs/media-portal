@@ -4,3 +4,5 @@
 /buildSrc/build/
 /buildSrc/.gradle/
 /.gradle/
+/server/build/
+/client-lib/build/

@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     checkstyle
+    id("idea")
 }
 
 java {

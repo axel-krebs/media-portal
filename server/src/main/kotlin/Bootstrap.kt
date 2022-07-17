@@ -1,5 +1,8 @@
 import de.akrebs.web.minimvc.controller.ControllerBase
 import de.akrebs.web.minimvc.view.ViewBase
+import io.quarkus.runtime.Quarkus
+import io.quarkus.runtime.QuarkusApplication
+import io.quarkus.runtime.annotations.QuarkusMain
 import io.vertx.core.Handler
 import io.vertx.core.Vertx
 import io.vertx.core.VertxOptions
@@ -9,7 +12,6 @@ import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.io.File
 
 /**
  * Read configuration and start framework.
@@ -17,10 +19,10 @@ import java.io.File
 class Bootstrap {
 
     companion object {
-        @JvmStatic fun main(vararg args: String) {
-            // 1. Read configuration
-            val scriptFile = File(args[0])
-            println("Reading script $scriptFile")
+        @JvmStatic
+        fun main(vararg args: String) {
+            // 1.Start Quarkus
+            //Quarkus.run(args);
             // 2. Establish cluster
             val opts = VertxOptions()
             val vertx = Vertx.vertx(opts)
@@ -28,9 +30,6 @@ class Bootstrap {
             val rbRouter = Router.router(vertx)
             createRoutes(rbRouter)
             // 4. Start server on port 8080
-
-            //applyRoR(rbRouter);
-            //WebApp.start(rbRouter);
             val server = Vertx.vertx().createHttpServer().requestHandler(rbRouter)
             server.listen(8080)
         }

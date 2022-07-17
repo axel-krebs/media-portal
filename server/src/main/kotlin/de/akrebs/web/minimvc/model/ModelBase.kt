@@ -10,7 +10,7 @@ abstract class ModelBase : PanacheEntity() {
     val constraints: List<Function<Boolean>> = emptyList()
 
     fun notNull(obj: Any) : Boolean {
-        return false
+        return obj != null
     }
 
     fun validate() {
