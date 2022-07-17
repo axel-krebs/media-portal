@@ -1,10 +1,9 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 buildscript {
 
 }
 
 plugins {
-    id("java-library-conventions")
+    //id("java-library-conventions")
     //id("io.quarkus") version "2.11.0.CR1"
     kotlin("jvm") version "1.7.10"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.7.10"

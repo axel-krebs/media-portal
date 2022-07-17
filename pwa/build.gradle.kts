@@ -1,6 +1,10 @@
+buildscript {
+
+}
+
 plugins {
     id("reactive-web-conventions")
-    //id("java-library") // wish I don't need it.
+    //id("java") // wish I don't need it.
     kotlin("js") version "1.7.10"
 }
 

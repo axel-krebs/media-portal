@@ -7,6 +7,10 @@ import io.quarkus.hibernate.reactive.panache.PanacheEntity
  */
 abstract class ModelBase : PanacheEntity() {
 
+    companion object NullModel : ModelBase() {
+        // nothing
+    }
+
     val constraints: List<Function<Boolean>> = emptyList()
 
     fun notNull(obj: Any) : Boolean {

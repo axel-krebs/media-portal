@@ -1,7 +1,7 @@
 plugins {
-    `java-library`
-    checkstyle
+    id("java")
     id("idea")
+    //checkstyle
 }
 
 java {
@@ -9,17 +9,12 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-checkstyle {
-    maxWarnings = 0
+//checkstyle {
+    //maxWarnings = 0
     // ...
-}
+//}
 
 tasks.withType<JavaCompile> {
     options.isWarnings = true
-    // ...
-}
-
-dependencies {
-    testImplementation("junit:junit:4.13")
     // ...
 }
