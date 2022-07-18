@@ -1,3 +1,5 @@
+import de.akrebs.web.minimvc.controller.ApiCallController
+import de.akrebs.web.minimvc.controller.StaticResourceController
 import de.akrebs.web.minimvc.view.Format
 import de.akrebs.web.minimvc.view.ViewBase
 import io.vertx.core.Handler
@@ -23,23 +25,51 @@ class Bootstrap {
             // 2. Establish cluster
             val opts = VertxOptions()
             val vertx = Vertx.vertx(opts)
-            // 3. createRoutes
+            // 3. create routes, th.i. register 'handlers'
             val rbRouter = Router.router(vertx)
             createRoutes(rbRouter)
-            // 4. Start server on port 8080
+            // 4. Deploy verticles, if any..
+
+            // 5. Start server on port 8080
             val server = Vertx.vertx().createHttpServer().requestHandler(rbRouter)
             server.listen(8181)
         }
 
         fun createRoutes(router: Router) {
+
+            // 1. 'IndexHandler' handles the 'landing page': deliver the 'index.html' static file.
             val indexController = StaticResourceController("index.html")
             val indexHandler = IndexHandler(indexController)
             router.route("/").handler(indexHandler)
 
+            // 2. Any GET request (that is not an API call) shall deliver the requested resource; any other HTTP method
+            // is not supported!
             val resourceHandler = ResourceHandler()
-            router.get("/**").handler(resourceHandler)
+            router.get("/:resource").handler(resourceHandler)
+
+            // 3. API calls do have a separate path prefix ('api/v2/domain' for example).
+            val apiVersion = "v1"
+            val apiHandler = ApiCallHandler(apiVersion)
+            router.route("/api/".plus(apiVersion).plus("/**")).handler(apiHandler)
         }
     }
+}
+
+class ApiCallHandler(private val version: String) : Handler<RoutingContext> {
+
+    companion object {
+        val LOG: Logger = LoggerFactory.getLogger(ApiCallHandler::class.java.name)
+    }
+
+    private val apiController: ApiCallController = ApiCallController(version)
+
+    override fun handle(rc: RoutingContext?) {
+        val request: HttpServerRequest? = rc?.request()
+        val requestedFormat: Format = Format.AJAX_JSON
+        apiController.process(request)?.onSuccess { view -> view?.render(request, requestedFormat) }
+            ?.onFailure { error -> LOG.error("Request unsuccessfully finished, {}", error) }
+    }
+
 }
 
 /**
@@ -67,18 +97,20 @@ class IndexHandler(val controller: StaticResourceController) : Handler<RoutingCo
 
 class ResourceHandler : Handler<RoutingContext> {
 
-    //val resourceController : StaticResourceController
+    /**
+     * Static initializations
+     */
     companion object {
         val LOG: Logger = LoggerFactory.getLogger(ResourceHandler::class.java.name)
     }
 
-    override fun handle(routeingContext: RoutingContext?) {
-        val resourcePath: String? = routeingContext?.request()?.path()
+    override fun handle(routingContext: RoutingContext?) {
+        val resourcePath: String? = routingContext?.pathParam("resource")
         if (null != resourcePath) {
-            StaticResourceController(resourcePath).process(routeingContext.request())?.onSuccess { view ->
-                view?.render(routeingContext.request(), Format.RAW_BYTES)?.onSuccess {
+            StaticResourceController(resourcePath).process(routingContext.request())?.onSuccess { view ->
+                view?.render(routingContext.request(), Format.RAW_BYTES)?.onSuccess {
                     LOG.info("Resource request handled successfully.")
-                }
+                }?.onFailure { error -> LOG.error("Couln't retrieve resource: {}", error) }
             }
         }
     }

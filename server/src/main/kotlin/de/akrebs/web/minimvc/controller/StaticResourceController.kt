@@ -1,4 +1,5 @@
-import de.akrebs.web.minimvc.controller.ControllerBase
+package de.akrebs.web.minimvc.controller
+
 import de.akrebs.web.minimvc.model.ResourceModel
 import de.akrebs.web.minimvc.view.ResourceView
 import de.akrebs.web.minimvc.view.ViewBase
@@ -25,11 +26,4 @@ open class StaticResourceController(val resourcePath : String) : ControllerBase(
     fun getResourceModel(resourcePath: String?) : ResourceModel {
         return ResourceModel(data)
     }
-}
-
-class ApiCallController : ControllerBase() {
-    override fun process(request: HttpServerRequest?): Future<ViewBase?>? {
-        TODO("Not yet implemented")
-    }
-
 }

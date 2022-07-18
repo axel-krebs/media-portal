@@ -8,7 +8,9 @@ import io.quarkus.hibernate.reactive.panache.PanacheEntity
 abstract class ModelBase : PanacheEntity() {
 
     companion object NullModel : ModelBase() {
-        // nothing
+        override fun isValid() : Boolean {
+            return true
+        }
     }
 
     val constraints: List<Function<Boolean>> = emptyList()
@@ -22,4 +24,6 @@ abstract class ModelBase : PanacheEntity() {
             f -> f.apply {  }
         }
     }
+
+    abstract fun isValid() : Boolean
 }
