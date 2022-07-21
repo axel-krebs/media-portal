@@ -1,8 +1,9 @@
-/target/
-/.vertx/
+/.gradle/
 /.idea/
 /buildSrc/build/
 /buildSrc/.gradle/
-/.gradle/
+/gradle/
+/kotlin-js-store/
+/pwa/build/
 /server/build/
-/client-lib/build/
+/shared/build/

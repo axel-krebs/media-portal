@@ -3,9 +3,12 @@ package de.akrebs.web.minimvc.view
 import de.akrebs.web.minimvc.model.ModelBase
 import io.vertx.core.http.HttpServerResponse
 
+/**
+ * Intention: Reactive template engine. Out-phased by Quarkus Qute.
+ */
 open class Template(format: Format, data: Sequence<Char>) {
 
-    val d_iter = data.iterator()
+    private val d_iter = data.iterator()
 
     fun apply(model: ModelBase, response: HttpServerResponse?) {
         val sb : StringBuilder = StringBuilder()

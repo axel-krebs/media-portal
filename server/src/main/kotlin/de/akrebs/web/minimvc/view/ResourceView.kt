@@ -4,8 +4,8 @@ import de.akrebs.web.minimvc.model.ModelBase
 import de.akrebs.web.minimvc.model.ResourceModel
 import io.vertx.core.Future
 import io.vertx.core.Promise
-import io.vertx.core.buffer.Buffer
-import io.vertx.core.http.HttpServerRequest
+import io.vertx.mutiny.core.buffer.Buffer
+import io.vertx.mutiny.core.http.HttpServerRequest
 
 class ResourceView(private val resource: ResourceModel) : ViewBase(resource) {
 

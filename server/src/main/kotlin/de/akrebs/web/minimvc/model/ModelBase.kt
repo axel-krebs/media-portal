@@ -1,11 +1,6 @@
 package de.akrebs.web.minimvc.model
 
-import io.quarkus.hibernate.reactive.panache.PanacheEntity
-
-/**
- * Extend PanacheEntity for customization.
- */
-abstract class ModelBase : PanacheEntity() {
+abstract class ModelBase {
 
     companion object NullModel : ModelBase() {
         override fun isValid() : Boolean {
