@@ -3,8 +3,8 @@ buildscript {
 }
 
 plugins {
-    //id("java") // wish I don't need it.
-    kotlin("js") version "1.7.10"
+    //id("kotlin-conventions")
+    kotlin("js")
 }
 
 group = "de.akrebs.web"
@@ -29,9 +29,13 @@ kotlin {
         }
     }
 }
-//tasks.register<Wrapper>("wrapper") {
-//
-//}
+
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        // s. https://kotlinlang.org/docs/gradle.html#attributes-specific-to-js
+    }
+}
 
 tasks.register("prepareKotlinBuildScriptModel"){
 

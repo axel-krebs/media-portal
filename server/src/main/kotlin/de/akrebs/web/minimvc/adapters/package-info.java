@@ -1,1 +1,0 @@
-package de.akrebs.web.minimvc.adapters;

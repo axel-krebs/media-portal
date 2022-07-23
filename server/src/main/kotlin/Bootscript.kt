@@ -1,4 +1,4 @@
-import com.afrnt.portal.QApp
+import com.afrtn.portal.QApp
 import io.quarkus.runtime.Quarkus
 import io.quarkus.runtime.annotations.QuarkusMain
 
