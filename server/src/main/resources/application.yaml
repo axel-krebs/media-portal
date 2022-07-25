@@ -7,35 +7,42 @@ quarkus:
     remove-unused-beans: false
   http:
     host: localhost
-    port: 8181
+    port: 8080
 #  neo4j:
 #    uri: bolt://server-address:7687
 #    authentication:
 #      username: neo4j
 #      password: secret
-#  vertx:
-#    classpath-resolving: false
-#    worker-pool-size: 25
+  vertx:
+    classpath-resolving: false
+    worker-pool-size: 25
 
 "%dev":
   quarkus:
+    application:
+      name: afrtn-app-dev
+      ui-header: AFRTN Portal (DEV)
     http:
       host: localhost
       port: 8181
 
 "%test":
   quarkus:
+    application:
+      name: afrtn-app-test
+      ui-header: AFRTN Portal (TEST)
     http:
       host: localhost
       port: 8181
-#    neo4j:
-#      uri: bolt://server-address:7687
-#      authentication:
-#        username: neo4j
-#        password: secret
-#  vertx:
-#    classpath-resolving: false
-#    worker-pool-size: 25
+    neo4j:
+      uri: bolt://server-address:7687
+      authentication:
+        username: neo4j
+        password: secret
+  vertx:
+    classpath-resolving: false
+    worker-pool-size: 25
+
 # Proprietary properties
 afrtn.app:
   name=AFRTN Portal

@@ -5,5 +5,5 @@
 /gradle/
 /kotlin-js-store/
 /pwa/build/
-/server/build/
 /shared/build/
+/server/target/
