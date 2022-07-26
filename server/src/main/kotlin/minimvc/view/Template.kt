@@ -1,7 +1,7 @@
 package minimvc.view
 
-import minimvc.model.ModelBase
 import io.vertx.core.http.HttpServerResponse
+import minimvc.model.ModelBase
 
 /**
  * Intention: Reactive template engine. Out-phased by Quarkus Qute.

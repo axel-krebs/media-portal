@@ -7,9 +7,9 @@ import io.quarkus.runtime.QuarkusApplication
 import io.vertx.ext.web.Router
 import io.vertx.mutiny.core.Vertx
 import io.vertx.mutiny.ext.web.RoutingContext
-import minimvc.adapters.vertx.handlers.ControllerHandler
-import minimvc.adapters.vertx.handlers.ResourceHandler
+import minimvc.adapters.vertx.handlers.StaticResourceControllerHandler
 import minimvc.controller.impl.StaticResourceController
+import minimvc.view.Format
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import javax.enterprise.context.ApplicationScoped
@@ -38,30 +38,33 @@ open class QApp : QuarkusApplication {
     }
 
     open fun init(@Observes router: io.vertx.mutiny.ext.web.Router?) {
-        LOG.trace("io.vertx.mutiny.ext.web.Router initialized")
+        LOG.trace("io.vertx.mutiny.ext.web.Router initialized.")
         createRoutes(router!!)
     }
 
-    private var indexController = StaticResourceController("index.html")
+    private var indexController = StaticResourceController("index.html", Format.HTML5)
 
     /*
-     * Attention: Vertx routes shall not interfere with REST endpoints!
+     * Attention: Vertx routes shall not interfere with REST endpoints which are defined in application resources (REST)!
      */
     private fun createRoutes(router: io.vertx.mutiny.ext.web.Router) {
+
         // 1. Handle the 'landing page': deliver the 'index.html' static file.
-        val controllerHandler = ControllerHandler(indexController)
-        // map the root context to static index.html
+        val staticResourceControllerHandler = StaticResourceControllerHandler(indexController)
+        // map the root context to static index.html controller
         router.route("/").handler { event: RoutingContext? ->
-            controllerHandler.handle(
+            staticResourceControllerHandler.handle(
                 event
             )
         }
 
         // 2. Any GET request (that is not an API call) shall deliver the requested resource; any
         // other HTTP method is not supported!
-        val resourceHandler = ResourceHandler()
         router["/:resource"].handler { routingContext: RoutingContext? ->
-            resourceHandler.handle(
+            val resourcePath: String? = routingContext?.pathParam("resource")
+            // since 'resourcePath' is an optional string, it must be checked for NULL
+            val resourceController = StaticResourceController(resourcePath)
+            StaticResourceControllerHandler(resourceController).handle(
                 routingContext
             )
         }

@@ -1,10 +1,10 @@
 package minimvc.adapters.vertx.handlers
 
-import minimvc.controller.impl.ApiCallController
-import minimvc.view.Format
 import io.vertx.core.Handler
 import io.vertx.mutiny.core.http.HttpServerRequest
 import io.vertx.mutiny.ext.web.RoutingContext
+import minimvc.controller.impl.ApiCallController
+import minimvc.view.Format
 import minimvc.view.ViewBase
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -19,8 +19,7 @@ open class ApiCallHandler(private val version: String) : Handler<RoutingContext>
 
     override fun handle(rc: RoutingContext?) {
         val request: HttpServerRequest? = rc?.request()
-        val requestedFormat: Format = Format.XML
-        apiController.process(request)?.onSuccess { view: ViewBase? -> view?.render(request, requestedFormat) }
+        apiController.process(request)?.onSuccess { view: ViewBase? -> view?.render(request) }
             ?.onFailure { error -> LOG.error("Request unsuccessfully finished, {}", error) }
     }
 

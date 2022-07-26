@@ -3,7 +3,7 @@ package com.afrtn.portal;
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.containsString
 import org.junit.jupiter.api.Test
 
 @QuarkusTest
