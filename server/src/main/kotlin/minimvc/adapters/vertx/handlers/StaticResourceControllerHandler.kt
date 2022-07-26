@@ -4,7 +4,7 @@ import io.vertx.core.Handler
 import io.vertx.core.http.HttpMethod
 import io.vertx.mutiny.core.http.HttpServerRequest
 import io.vertx.mutiny.ext.web.RoutingContext
-import minimvc.controller.impl.StaticResourceController
+import minimvc.controller.StaticResourceController
 import minimvc.view.ViewBase
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

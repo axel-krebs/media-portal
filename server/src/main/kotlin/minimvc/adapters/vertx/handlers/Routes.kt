@@ -2,7 +2,7 @@ package minimvc.adapters.vertx.handlers
 
 import io.vertx.mutiny.ext.web.Router
 import io.vertx.mutiny.ext.web.RoutingContext
-import minimvc.controller.impl.StaticResourceController
+import minimvc.controller.StaticResourceController
 import minimvc.view.Format
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -25,6 +25,22 @@ open class Routes(private val router: Router) {
         createRoutes(router)
     }
 
+    /**
+     * Add a route to a static resource. Only GET requests are possible!
+     */
+    public fun addStatic(route: String, handler: StaticResourceControllerHandler) {
+        router.get(route).handler { event ->
+            handler.handle(event)
+        };
+    }
+
+    /**
+     * Add a route to a form data processor.
+     */
+    public fun addFormHandler(route: String, handler: FormDataControllerHandler) {
+        router.post(route).handler { event -> handler.handle(event) }
+    }
+
     /*
     * Attention: Vertx routes shall not interfere with REST endpoints which are defined in application resources (REST)!
     */
@@ -40,46 +56,32 @@ open class Routes(private val router: Router) {
         }
 
         // 2. Any GET request (that is not an API call) shall deliver the requested resource; other HTTP methods are not
-        // supported, that is the handler will throw an error if a POST, PUT, DELETE etc. is sent to a resource.
-        router["/:resource"].handler { routingContext: RoutingContext? ->
-            val resourcePath: String? = routingContext?.pathParam("resource")
-            val resourceController = StaticResourceController(resourcePath)
-            StaticResourceControllerHandler(resourceController).handle(
-                routingContext
-            )
-        }
+        // supported, that is the handler will throw an error if a POST, PUT, DELETE etc. is sent to a resource. For now,
+        // it is assumed that the requested path corresponds to the path under the 'static' resource folder
+        router.routeWithRegex("\\/(?<somePath>[^\\/]*?)\\/(?<someResource>[^\\/]+)\\.(?<someExtension>[^\\.]+)$")
+            .handler { routingContext: RoutingContext? ->
+                val somePath: String? = routingContext?.pathParam("somePath")
+                val someResource: String? = routingContext?.pathParam("someResource")
+                val someExtension: String? = routingContext?.pathParam("someExtension")
+                // empty plus something is something - it's not mathematics!!
+                val staticPath = somePath.plus("/").plus(someResource).plus(".".plus(someExtension))
+                val resourceController = StaticResourceController(staticPath)
+                StaticResourceControllerHandler(resourceController).handle(
+                    routingContext
+                )
+            }
 
-        // 3. Request to css files
-        router["/css/:resource"].handler { routingContext: RoutingContext? ->
-            val resourcePath: String? = routingContext?.pathParam("resource")
-            val resourceController = StaticResourceController(CSS_PATH.plus(resourcePath), Format.CSS3)
-            StaticResourceControllerHandler(resourceController).handle(
-                routingContext
-            )
-        }
-
-        // 4. Request to JavaScript files
-        router["/js/:resource"].handler { routingContext: RoutingContext? ->
-            val resourcePath: String? = routingContext?.pathParam("resource")
-            val resourceController = StaticResourceController(JS_PATH.plus(resourcePath), Format.JAVASCRIPT)
-            StaticResourceControllerHandler(resourceController).handle(
-                routingContext
-            )
-        }
-
-        // 5. Request to fonts files
-        router["/fonts/:resource"].handler { routingContext: RoutingContext? ->
-            val resourcePath: String? = routingContext?.pathParam("resource")
-            val resourceController =
-                StaticResourceController(FONTS_PATH.plus(resourcePath)) // leave format decision to controller
-            StaticResourceControllerHandler(resourceController).handle(
-                routingContext
-            )
-        }
-
-        // 3. API calls do have a separate path prefix ('api/v2/domain' for example).
-        //String apiVersion = "v1";
-        //ApiCallHandler apiHandler = new ApiCallHandler(apiVersion);
-        //router.route("/api/" + apiVersion + "/*").handler(rc -> apiHandler.handle(rc));
+        // 666. HELL I didn't know how (above) to make this first path element optional !!! Now gets 'favicon.ico* ..
+        router.routeWithRegex("\\/(?<someResource>[^\\/]+)\\.(?<someExtension>[^\\.]+)$")
+            .handler { routingContext: RoutingContext? ->
+                val someResource: String? = routingContext?.pathParam("someResource")
+                val someExtension: String? = routingContext?.pathParam("someExtension")
+                // empty plus something is something - it's not mathematics!!
+                val staticPath = someResource.plus(".").plus(someExtension)
+                val resourceController = StaticResourceController(staticPath)
+                StaticResourceControllerHandler(resourceController).handle(
+                    routingContext
+                )
+            }
     }
 }

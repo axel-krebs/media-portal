@@ -1,17 +1,16 @@
 package com.afrtn.portal
 
+import com.afrtn.portal.frontend.LoginController
 import io.quarkus.runtime.QuarkusApplication
 import io.vertx.ext.web.Router
 import io.vertx.mutiny.core.Vertx
-import io.vertx.mutiny.ext.web.RoutingContext
+import minimvc.adapters.vertx.handlers.FormDataControllerHandler
 import minimvc.adapters.vertx.handlers.Routes
-import minimvc.adapters.vertx.handlers.StaticResourceControllerHandler
-import minimvc.controller.impl.StaticResourceController
-import minimvc.view.Format
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import javax.enterprise.context.ApplicationScoped
 import javax.enterprise.event.Observes
+import javax.inject.Inject
 
 @ApplicationScoped
 open class QApp : QuarkusApplication {
@@ -30,9 +29,14 @@ open class QApp : QuarkusApplication {
         LOG.trace("Vertx initialized.")
     }
 
+    @Inject
+    lateinit var loginController: LoginController
+
     open fun init(@Observes router: Router?) {
         LOG.trace("io.vertx.ext.web.Router initialized.")
-        Routes(io.vertx.mutiny.ext.web.Router.newInstance(router))
+        val routes = Routes(io.vertx.mutiny.ext.web.Router.newInstance(router))
+
+        routes.addFormHandler("/login", FormDataControllerHandler(loginController))
     }
 
     open fun init(@Observes router: io.vertx.mutiny.ext.web.Router?) {

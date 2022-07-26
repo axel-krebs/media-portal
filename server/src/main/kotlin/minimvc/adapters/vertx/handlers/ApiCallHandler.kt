@@ -3,8 +3,7 @@ package minimvc.adapters.vertx.handlers
 import io.vertx.core.Handler
 import io.vertx.mutiny.core.http.HttpServerRequest
 import io.vertx.mutiny.ext.web.RoutingContext
-import minimvc.controller.impl.ApiCallController
-import minimvc.view.Format
+import minimvc.controller.ApiCallController
 import minimvc.view.ViewBase
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

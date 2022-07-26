@@ -10,10 +10,6 @@ abstract class ModelBase {
 
     val constraints: List<Function<Boolean>> = emptyList()
 
-    fun notNull(obj: Any): Boolean {
-        return obj != null
-    }
-
     fun validate() {
         constraints.forEach() { f ->
             f.apply { }
