@@ -1,0 +1,33 @@
+.top_menu {
+    display: none;
+}
+@include media-breakpoint-up(sm) {
+    .top_menu {
+        display: block;
+        height: 2em;
+    }
+}
+@include media-breakpoint-up(md) {
+ .top_menu {
+     display: block;
+     height: 3em;
+ }
+}
+@include media-breakpoint-up(lg) {
+ .top_menu {
+     display: block;
+     height: 4em;
+ }
+}
+@include media-breakpoint-up(xl) {
+    .top_menu {
+        display: block;
+        height: 5em;
+    }
+}
+.main_content {
+    display: block;
+}
+.bottom_info {
+    display: block;
+}

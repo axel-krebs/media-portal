@@ -2,7 +2,7 @@ package minimvc.model
 
 class ResourceModel(private val resource: ByteArray?) : ModelBase() {
 
-    fun getAsByteArray() : ByteArray? {
+    fun getAsByteArray(): ByteArray? {
         return resource
     }
 

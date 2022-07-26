@@ -3,17 +3,24 @@ package minimvc.controller.impl
 import io.vertx.core.Future
 import io.vertx.core.Promise
 import io.vertx.mutiny.core.http.HttpServerRequest
+import minimvc.adapters.vertx.handlers.Routes
 import minimvc.controller.ControllerBase
 import minimvc.model.ResourceModel
 import minimvc.view.Format
 import minimvc.view.ResourceView
 import minimvc.view.ViewBase
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /**
  * Purpose: Deliver static resources in folder 'static'; cannot be Singleton because of parameter.
  * @param resourcePath A file in the resource folder, may reside in subdirectory.
  */
 open class StaticResourceController(private val resourcePath: String?) : ControllerBase() {
+
+    companion object {
+        val LOG: Logger = LoggerFactory.getLogger(StaticResourceController::class.java)
+    }
 
     //val staticResources : Map<String,ResourceModel> =
     private val resourceModel: ResourceModel = wrapModel(resourcePath)
@@ -26,7 +33,7 @@ open class StaticResourceController(private val resourcePath: String?) : Control
     private var responseContentType: Format = adviseContentType(resourcePath)
 
     // not so nice: the function 'adviceContentType'  will be called first. Workaround?
-    constructor(resourcePath: String, preDefinedFormat: Format) : this(resourcePath) {
+    constructor(resourcePath: String?, preDefinedFormat: Format) : this(resourcePath) {
         responseContentType = preDefinedFormat
     }
 
@@ -35,6 +42,7 @@ open class StaticResourceController(private val resourcePath: String?) : Control
         val resourceView: ResourceView = if (resourceModel.isValid()) {
             ResourceView(resourceModel, responseContentType)
         } else {
+            LOG.warn("Invalid request to resource: {}", resourcePath)
             ResourceView(error404Data, Format.HTML5)
         }
         promisedResource.complete(resourceView)

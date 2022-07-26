@@ -3,7 +3,7 @@ import io.quarkus.runtime.Quarkus
 import io.quarkus.runtime.annotations.QuarkusMain
 
 /**
- * Read configuration and start framework.
+ * Boots QApp in @JvmStatic main method.
  */
 open class Bootstrap {
 

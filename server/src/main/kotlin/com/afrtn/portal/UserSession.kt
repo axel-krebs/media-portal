@@ -9,10 +9,10 @@ import javax.enterprise.context.SessionScoped
 @SessionScoped
 @Dependent
 open class UserSession {
-    val userAgent : String = ""
+    val userAgent: String = ""
 
     @DefaultBean
     companion object {
-        val LOG : Logger = LoggerFactory.getLogger(UserSession.Companion::class.java)
+        val LOG: Logger = LoggerFactory.getLogger(UserSession.Companion::class.java)
     }
 }
