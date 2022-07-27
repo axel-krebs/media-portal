@@ -18,6 +18,7 @@ open class StaticResourceController(private val resourcePath: String?) : Control
 
     companion object {
         val LOG: Logger = LoggerFactory.getLogger(StaticResourceController::class.java)
+        const val PUBLIC_FOLDER : String = "public/"
     }
 
     private val resourceModel: ResourceModel = wrapModel(resourcePath)
@@ -51,7 +52,7 @@ open class StaticResourceController(private val resourcePath: String?) : Control
      */
     private fun wrapModel(resourcePath: String?): ResourceModel {
         val data: ByteArray? =
-            this.javaClass.classLoader.getResourceAsStream("static/".plus(resourcePath))?.readAllBytes()
+            this.javaClass.classLoader.getResourceAsStream(PUBLIC_FOLDER.plus(resourcePath))?.readAllBytes()
         // If not found? Errors must be checked on startup!
         return ResourceModel(data)
     }

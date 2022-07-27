@@ -16,9 +16,6 @@ open class Routes(private val router: Router) {
 
     companion object {
         val LOG: Logger = LoggerFactory.getLogger(Routes::class.java)
-        private const val CSS_PATH: String = "css/"
-        private const val JS_PATH: String = "js/"
-        private const val FONTS_PATH: String = "fonts/"
     }
 
     init {
@@ -58,13 +55,12 @@ open class Routes(private val router: Router) {
         // 2. Any GET request (that is not an API call) shall deliver the requested resource; other HTTP methods are not
         // supported, that is the handler will throw an error if a POST, PUT, DELETE etc. is sent to a resource. For now,
         // it is assumed that the requested path corresponds to the path under the 'static' resource folder
-        router.routeWithRegex("\\/(?<somePath>[^\\/]*?)\\/(?<someResource>[^\\/]+)\\.(?<someExtension>[^\\.]+)$")
+        router.routeWithRegex("(?<somePath>[^;]*?)\\.(?<someExtension>[a-z]+)$")
             .handler { routingContext: RoutingContext? ->
                 val somePath: String? = routingContext?.pathParam("somePath")
-                val someResource: String? = routingContext?.pathParam("someResource")
                 val someExtension: String? = routingContext?.pathParam("someExtension")
                 // empty plus something is something - it's not mathematics!!
-                val staticPath = somePath.plus("/").plus(someResource).plus(".".plus(someExtension))
+                val staticPath = somePath.plus(".").plus(someExtension)
                 val resourceController = StaticResourceController(staticPath)
                 StaticResourceControllerHandler(resourceController).handle(
                     routingContext
@@ -72,16 +68,16 @@ open class Routes(private val router: Router) {
             }
 
         // 666. HELL I didn't know how (above) to make this first path element optional !!! Now gets 'favicon.ico* ..
-        router.routeWithRegex("\\/(?<someResource>[^\\/]+)\\.(?<someExtension>[^\\.]+)$")
-            .handler { routingContext: RoutingContext? ->
-                val someResource: String? = routingContext?.pathParam("someResource")
-                val someExtension: String? = routingContext?.pathParam("someExtension")
-                // empty plus something is something - it's not mathematics!!
-                val staticPath = someResource.plus(".").plus(someExtension)
-                val resourceController = StaticResourceController(staticPath)
-                StaticResourceControllerHandler(resourceController).handle(
-                    routingContext
-                )
-            }
+//        router.routeWithRegex("\\/(?<someResource>[^\\/]+)\\.(?<someExtension>[^\\.]+)$")
+//            .handler { routingContext: RoutingContext? ->
+//                val someResource: String? = routingContext?.pathParam("someResource")
+//                val someExtension: String? = routingContext?.pathParam("someExtension")
+//                // empty plus something is something - it's not mathematics!!
+//                val staticPath = someResource.plus(".").plus(someExtension)
+//                val resourceController = StaticResourceController(staticPath)
+//                StaticResourceControllerHandler(resourceController).handle(
+//                    routingContext
+//                )
+//            }
     }
 }

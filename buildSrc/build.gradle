@@ -1,0 +1,17 @@
+buildscript {
+
+}
+
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
+    implementation("com.github.node-gradle:gradle-node-plugin:3.4.0")
+}

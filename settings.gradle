@@ -5,5 +5,5 @@ pluginManagement {
     }
 }
 rootProject.name = "media-portal"
-include("pwa")
 include("shared")
+include("webapp")

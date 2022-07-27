@@ -1,0 +1,171 @@
+import com.github.gradle.node.npm.task.*
+import com.github.gradle.node.yarn.task.*
+import com.github.gradle.node.task.*
+
+plugins {
+    id("idea")
+    //id 'eclipse'
+    //id 'eclipse-wtp'
+    id("com.github.node-gradle.node")
+}
+
+//webContextPath = "${project.projectDir}/src/main/web"
+
+node {
+    distBaseUrl = "https://nodejs.org/dist"
+    version = "16.16.0" // https://nodejs.org/en/
+    npmVersion = ""
+    yarnVersion = "1.22.19" // https://yarnpkg.com/en/
+    download = true
+    npmInstallCommand = "install"
+    workDir = file("${project.projectDir}/.cache/nodejs")
+    npmWorkDir = file("${project.projectDir}/.cache/npm")
+    yarnWorkDir = file("${project.projectDir}/.cache/yarn")
+    nodeProjectDir = file("${project.projectDir}")
+    //nodeProxySettings = ProxySettings.SMART)
+    //nodeProjectDir = file(webContextPath)
+}
+
+npm_install {
+    args = ['--location=global']
+}
+
+npm_update {
+    args = ['--production', '--loglevel', 'warn']
+}
+
+yarn_cache_clean {
+    args = ['--no-emoji', '--json']
+}
+
+yarn_install.dependsOn(yarn_cache_clean)
+
+tasks.npmInstall {
+    nodeModulesOutputFilter {
+        exclude("notExistingFile")
+    }
+
+}
+
+tasks.yarn {
+    nodeModulesOutputFilter {
+        exclude("notExistingFile")
+    }
+}
+
+ext.testTaskUsingNpx = tasks.register("NPX_command_mocha", NpxTask).configure { task ->
+    dependsOn(tasks.npmInstall)
+    task.command = "mocha"
+    args = ["test", "--grep", "should say hello"]
+    task.ignoreExitValue = false
+    //task.environment = mapOf("MY_CUSTOM_VARIABLE" to "hello")
+    task.workingDir = projectDir
+    execOverrides {
+        standardOutput = System.out
+    }
+    inputs.dir("node_modules")
+    inputs.file("package.json")
+    inputs.dir("src")
+    inputs.dir("test")
+    outputs.upToDateWhen {
+        true
+    }
+}
+
+ext.testTaskUsingNpm = tasks.register("NPM_call_script_test_run", NpmTask).configure { task ->
+    dependsOn(tasks.npmInstall)
+    task.npmCommand = ["run", "test"]
+    args = ["test"]
+    task.ignoreExitValue = false
+    //environment = mapOf("MY_CUSTOM_VARIABLE" to "hello"))
+    task.workingDir = projectDir
+    execOverrides {
+        standardOutput = System.out
+    }
+    inputs.dir("node_modules")
+    inputs.file("package.json")
+    inputs.dir("src")
+    inputs.dir("test")
+    outputs.upToDateWhen {
+        true
+    }
+}
+
+ext.testTaskUsingYarn = tasks.register("YARN_call_script_test_run", YarnTask).configure { task ->
+    dependsOn(tasks.npmInstall)
+    task.yarnCommand = ["run", "test"]
+    args = ["test"]
+    task.ignoreExitValue = false
+    task.environment = ["MY_CUSTOM_VARIABLE":"hello"]
+    task.workingDir = projectDir
+    execOverrides {
+        standardOutput = System.out
+    }
+    inputs.dir("node_modules")
+    inputs.file("package.json")
+    inputs.dir("src")
+    inputs.dir("test")
+    outputs.upToDateWhen {
+        true
+    }
+}
+
+// run on nodejs
+tasks.register("run", NodeTask).configure { task ->
+    //dependsOn(ext.testTaskUsingNpx, ext.testTaskUsingNpm, ext.testTaskUsingYarn)
+    task.script = file("src/main.js")
+    args = ["Bobby"]
+    task.ignoreExitValue = false
+    // environment = mapOf("MY_CUSTOM_VARIABLE" to "hello"))
+    task.workingDir = projectDir
+    execOverrides {
+        standardOutput = System.out
+    }
+    inputs.dir("src")
+    outputs.upToDateWhen {
+        false
+    }
+}
+
+ext.buildTaskUsingNpx = tasks.register("NPX_command_babel", NpxTask).configure { task ->
+    dependsOn(tasks.npmInstall)
+    task.command = "babel"
+    args = ["src", "--out-dir", "${buildDir}/npx-output"]
+    inputs.dir("src")
+    outputs.dir("${buildDir}/npx-output")
+}
+
+ext.buildTaskUsingNpm = tasks.register("NPM_call_script_build_run", NpmTask).configure { task ->
+    dependsOn(tasks.npmInstall)
+    task.npmCommand = ["run", "build"]
+    args = ["--", "--out-dir", "${buildDir}/npm-output"]
+    inputs.dir("src")
+    outputs.dir("${buildDir}/npm-output")
+}
+
+ext.cleanupTaskUsingNpm = tasks.register("NPM_cleanup-react-app", NpmTask).configure { task ->
+    task.npmCommand = ["cleanup-react-app"]
+    args = ["--force"]
+}
+
+ext.buildTaskUsingYarn = tasks.register("YARN_call_script_build_run", YarnTask).configure { task ->
+    dependsOn(tasks.npmInstall)
+    task.yarnCommand = ["run", "build"]
+    args = ["--out-dir", "${buildDir}/yarn-output"]
+    inputs.dir("src")
+    outputs.dir("${buildDir}/yarn-output")
+}
+
+tasks.register("ZIP_package", Zip).configure { task ->
+    archiveFileName = "app.zip"
+    destinationDirectory = buildDir
+    from(buildTaskUsingNpx) {
+        into("npx")
+    }
+    from(buildTaskUsingNpm) {
+        into("npm")
+    }
+    from(buildTaskUsingYarn) {
+        into("yarn")
+    }
+}

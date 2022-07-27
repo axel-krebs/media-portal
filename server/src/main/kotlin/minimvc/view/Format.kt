@@ -17,7 +17,8 @@ enum class Format(val contentType: String, val fileSuffix: String) {
     FONT_WOFF("application/font-woff", "woff"),
     RAW_BYTES("application/octet-stream", ""),
     XML("application/xml", "xml"),
-    XHTML("application/xhtml+xml", "xhtml");
+    XHTML("application/xhtml+xml", "xhtml"),
+    JSON("application/json", "json");
 
     companion object {
         fun getFormatForPath(path: String?): Format {
@@ -37,6 +38,7 @@ enum class Format(val contentType: String, val fileSuffix: String) {
                 if (path.endsWith(FONT_WOFF.fileSuffix)) return FONT_WOFF
                 if (path.endsWith(XML.fileSuffix)) return XML
                 if (path.endsWith(XHTML.fileSuffix)) return XHTML
+                if(path.endsWith(JSON.fileSuffix)) return JSON
             }
             // should we introduce a "null-format"?
             return RAW_BYTES

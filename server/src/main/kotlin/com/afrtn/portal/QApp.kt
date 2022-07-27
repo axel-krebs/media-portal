@@ -27,6 +27,7 @@ open class QApp : QuarkusApplication {
 
     open fun init(@Observes vertx: Vertx?) {
         LOG.trace("Vertx initialized.")
+        // deploy verticles
     }
 
     @Inject

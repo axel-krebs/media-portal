@@ -1,0 +1,11 @@
+buildscript {
+
+}
+
+plugins {
+    id("node-conventions")
+}
+
+group "de.akrebs.webapp"
+version "1.0.0-SNAPSHOT"
+
