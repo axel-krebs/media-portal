@@ -3,7 +3,8 @@
 /buildSrc/build/
 /buildSrc/.gradle/
 /gradle/
-/kotlin-js-store/
-/pwa/build/
 /shared/build/
 /server/target/
+/webapp/.cache/
+/webapp/build/
+/webapp/node_modules/
