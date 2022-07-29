@@ -3,13 +3,14 @@ import './Main.css'
 import Menu from './Menu'
 import Welcome from './Welcome'
 
+/** Layout the center page */
 function Main(props) {
 
     return (
-        <div>
+        <main role="main" className="Main-style-flex">
             <Menu />
             <Welcome />
-        </div>
+        </main>
     );
 }
 

@@ -1,10 +1,12 @@
 import React from 'react';
 import './Header.css'
+import './media/logo.svg'
 
+/* This must appear on the the top of the page, but shall be hidden when device is too small. */
 function Header(props) {
 
     return (
-        <header className="masthead mb-auto">
+        <header className="Header-style-flex">
             <div className="inner">
               <h3 className="masthead-brand">Cover</h3>
               <nav className="nav nav-masthead justify-content-center">

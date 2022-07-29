@@ -3,7 +3,7 @@ import { useMediaQuery } from 'react-responsive'
 import Layout from './Layout'
 import { DEVICE_TYPES_DISPLAY_PROPERTIES } from './Globals'
 
-/**/
+/* Start the application: Initialize data handling and layout. */
 function App() {
     //const isMobileDevice = useMediaQuery({ query: '(max-width: 480px)'});
     const isTabletDevice = useMediaQuery({ query: '(max-width: 1224px)' });

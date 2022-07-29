@@ -1,8 +1,9 @@
-/*
- * Header
- */
-.masthead {
-  /*margin-bottom: 2rem;*/
+.Header-style-flex {
+    overflow: auto;
+}
+
+.inner {
+    width: 100%;
 }
 
 .masthead-brand {
@@ -40,13 +41,3 @@
   }
 }
 
-/*
- * Cover
- */
-.cover {
-  padding: 0 1.5rem;
-}
-.cover .btn-lg {
-  padding: .75rem 1.25rem;
-  font-weight: 700;
-}

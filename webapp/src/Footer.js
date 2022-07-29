@@ -1,11 +1,12 @@
 import React from 'react';
+import './Footer.css'
 import { DEVICE_TYPES_DISPLAY_PROPERTIES } from './Globals'
 
 function Footer(props) {
 
     return (
-        <footer className="mastfoot mt-auto">
-            <div className="inner">
+        <footer className="Footer-style-flex">
+            <div className="mastfoot">
               <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
             </div>
         </footer>

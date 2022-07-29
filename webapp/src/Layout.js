@@ -6,10 +6,11 @@ import Main from './Main'
 import Footer from './Footer'
 import './Layout.css'
 
+/* Assure correct layout on diverse devices. */
 function Layout(props) {
 
     return (
-        <div className="cover-container d-flex mx-auto flex-column">
+        <div className="Center-container-flex">
             <Header />
             <Main />
             <Footer />
