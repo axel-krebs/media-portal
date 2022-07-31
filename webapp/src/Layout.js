@@ -6,14 +6,14 @@ import Main from './Main'
 import Footer from './Footer'
 import './Layout.css'
 
-/* Assure correct layout on diverse devices. */
+/* Assure correct layout on diverse devices. Header-Main-Footer structure preserved on all devices. */
 function Layout(props) {
-
+    let device = props['device'];
     return (
-        <div className="Center-container-flex">
-            <Header />
-            <Main />
-            <Footer />
+        <div className={`Center-container-flex ${device['cssThemeClass']}`}>
+            <Header theme={device['cssThemeClass']} />
+            <Main device={device} />
+            <Footer theme={device['cssThemeClass']} />
         </div>
     );
 }

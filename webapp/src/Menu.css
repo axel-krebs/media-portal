@@ -1,4 +1,17 @@
-.Menu-container {
-    height: 30px;
+.Menu-container-flex {
     background-color: #def;
+}
+
+.Smartphone .Menu-container-flex {
+    height: 30px;
+     background-color: #ccc;
+}
+
+.Tablet .Menu-container-flex {
+    height: 50px;
+    background-color: #ccc;
+}
+
+.Notebook .Menu-container-flex {
+    height: 30px;
 }

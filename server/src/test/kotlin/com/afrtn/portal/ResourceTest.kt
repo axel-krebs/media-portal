@@ -14,6 +14,6 @@ class ResourceTest {
             .`when`().get("/")
             .then()
             .statusCode(200)
-            .body(containsString("This is the index page"));
+            .body(containsString("<title>AFRTN.app</title>"));
     }
 }

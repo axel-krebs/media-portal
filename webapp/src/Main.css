@@ -1,5 +1,4 @@
 /* main element style */
 .Main-style-flex {
-    flex: 0 auto;
-    overflow: auto;
+    flex: 1 0 auto;
 }

@@ -6,10 +6,10 @@ import './media/logo.svg'
 function Header(props) {
 
     return (
-        <header className="Header-style-flex">
+        <header className={`Header-style-flex ${props['theme']}`}>
             <div className="inner">
-              <h3 className="masthead-brand">Cover</h3>
-              <nav className="nav nav-masthead justify-content-center">
+              <h3 className="masthead-brand">AFRTN</h3>
+              <nav className="nav nav-masthead">
                 <a className="nav-link active" href="#">Home</a>
                 <a className="nav-link" href="#">Features</a>
                 <a className="nav-link" href="#">Contact</a>
