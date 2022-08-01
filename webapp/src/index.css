@@ -19,14 +19,12 @@ code {
 
 /* Flexbox seems to get confused about the root element of React.. */
 .Root-flex {
-    display: -ms-flexbox;
-    display: -webkit-box;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: center;
     margin: 0;
     height: 100%;
     overflow: auto;
+}
+
+:root {
+    --left-padding: 20px;
+    --right-padding: 20px;
 }

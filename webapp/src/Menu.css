@@ -1,4 +1,24 @@
 .Menu-container-flex {
+    flex: 0 0 auto;
+}
+
+.menu_head_entry {
+
+}
+
+.menu_head_entry h3 {
+
+}
+
+.menu_head_entry p {
+
+}
+
+.menu_head_entry ul {
+
+}
+
+.menu_head_entry li {
 
 }
 
@@ -13,6 +33,7 @@
 }
 
 .Notebook .Menu-container-flex {
-    height: 30px;
     background-color: #def;
+    padding-left: var(--left-padding);
+    padding-right: var(--right-padding);
 }

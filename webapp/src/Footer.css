@@ -2,16 +2,17 @@
     overflow: auto;
     margin-top: auto;
     margin-bottom: 0;
+    flex: 0 0 auto;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-content: center;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 /* The footer tag - default values (should be overridden by theming) */
 .mastfoot {
     color: rgba(255, 255, 255, .9);
     background-color: #000;
+    flex: 1 1 auto;
 }
 
 .mastfoot p {
@@ -21,20 +22,19 @@
 
 /* Smartphone theming */
 .Smartphone .mastfoot {
-    flex: 1 auto;
     background-color: #ccc;
 }
 
 /* Smartphone theming */
 .Tablet .mastfoot {
-    flex: .6 auto;
     background-color: #ccc;
 }
 
 /* Smartphone theming */
 .Notebook .mastfoot {
-    flex: 1 auto;
     background-color: #000;
+    padding-left: var(--left-padding);
+    padding-right: var(--right-padding);
 }
 
 .nav-mastfoot {
@@ -44,8 +44,6 @@
 .nav-link-mastfoot {
     padding-left: 1em;
 }
-
-
 
 /* Links */
 a,

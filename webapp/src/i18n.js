@@ -21,7 +21,9 @@ i18n
             "footer_legal": "© 1997 - 2022 AFRTN Television LLC. A Division of The McGwire Ishikawa Organization LLC. All Rights Reseved. Trademark & Copyright Notice.",
             "link_legal_notice": "Legal Notice",
             "link_jobs_career": "Jobs & Careers",
-            "link_impressum": "Imprint"
+            "link_impressum": "Imprint",
+            "menu_title_company": "Company",
+            "menu_title_company_profile": "Company Profile"
           }
         },
         de: {
@@ -29,7 +31,9 @@ i18n
                 "footer_legal": "© 1997 - 2022 AFRTN Television LLC. Ein Unternehmen der McGwire Ishikawa Organization LLC. Alle Rechte vorbehalten. Trademark & Copyright Notice.",
                 "link_legal_notice": "Rechtliche Hinweise",
                 "link_jobs_career": "Jobs & Karriere",
-                "link_impressum": "Impressum"
+                "link_impressum": "Impressum",
+                "menu_title_company": "Unternehmen",
+                "menu_title_company_profile": "Unternehmensprofil"
             }
         }
     }

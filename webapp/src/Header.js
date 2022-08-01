@@ -8,8 +8,12 @@ function Header(props) {
 
     return (
         <header className={`Header-style-flex ${props['theme']}`}>
-            <div className="inner">
-              <h3 className="masthead-brand">AFRTN</h3>
+            <div className="left">
+              <h1>AFRTN</h1>
+              <p>Make your life great again!</p>
+            </div>
+            <div className="middle">WERBUNG?</div>
+            <div className="right">
               <nav className="nav nav-masthead">
                 <Link className="nav-link active" to="/">Home</Link>
                 <Link className="nav-link" to="/login">Login</Link>

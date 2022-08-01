@@ -1,9 +1,23 @@
 /* main element style */
 .Main-style-flex {
-    flex: 1 0 auto;
+    flex: 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.Main-center {
+    flex: 1 1 auto;
 }
 
 .Smartphone {
     color: cyan;
     background_color: #333;
+}
+
+.Tablet {
+
+}
+
+.Notebook .Main-center {
+     padding-left: var(--left-padding);
 }

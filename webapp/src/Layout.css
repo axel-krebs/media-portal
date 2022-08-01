@@ -1,9 +1,10 @@
-/* This applies to the Layout-component, that takes all the screen surface. */
+/* This applies to the Layout-components Header-Main-Footer that take all the screen surface. */
 .Center-container-flex {
-    flex: 1 1 auto;
     overflow: auto;
     height: 100%;
-
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
 }
 
 /*div {

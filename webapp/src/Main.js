@@ -12,19 +12,22 @@ import Welcome from './Welcome'
 import Contact from './Contact'
 import Login from './Login'
 
-/** Layout the center page */
+/** Layout the center page; on smaller devices this is the only visible part! */
 function Main(props) {
     let device = props['device'];
-    let menu = (device['desc'] == 'mobile_XL') ? <Breadcrumbs /> : <Menu theme={`device['cssThemeClass']`} />;
-    let navigation = (device['desc'] == 'mobile_XL') ? <Menu theme={`device['cssThemeClass']`} /> : <div></div>;
+    let theme = device['cssThemeClass'];
+    let menu = (device['desc'] == 'mobile_XL') ? <Breadcrumbs /> : <Menu theme={ theme } />;
+    let navigation = (device['desc'] == 'mobile_XL') ? <Menu theme={ theme } /> : <div></div>;
     return (
-        <main role="main" className="Main-style-flex">
+        <main role="main" className={`Main-style-flex ${theme}`}>
            {menu}
-           <Routes>
-             <Route index element={<Welcome />} />
-             <Route path="/contact" element={<Contact />} />
-             <Route path="/login" element={<Login />} />
-           </Routes>
+           <div className="Main-center">
+               <Routes>
+                 <Route index element={<Welcome />} />
+                 <Route path="/contact" element={<Contact />} />
+                 <Route path="/login" element={<Login />} />
+               </Routes>
+           </div>
            {navigation}
         </main>
     );

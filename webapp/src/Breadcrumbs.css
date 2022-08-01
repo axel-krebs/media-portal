@@ -1,10 +1,17 @@
 .Breadcrumbs-container-flex {
+    flex: 0 auto;
     background-color: #eee;
-    height: 25px;
-    padding: 5px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 
 .Breadcrumbs-container-flex a {
     font-weight: bold;
     color: black;
+}
+
+.Notebook .Breadcrumbs-container-flex {
+    height: 32px;
+    padding-left: var(--left-padding);
 }
