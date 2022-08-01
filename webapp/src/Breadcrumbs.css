@@ -1,0 +1,10 @@
+.Breadcrumbs-container-flex {
+    background-color: #eee;
+    height: 25px;
+    padding: 5px;
+}
+
+.Breadcrumbs-container-flex a {
+    font-weight: bold;
+    color: black;
+}

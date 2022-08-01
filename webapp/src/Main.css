@@ -2,3 +2,8 @@
 .Main-style-flex {
     flex: 1 0 auto;
 }
+
+.Smartphone {
+    color: cyan;
+    background_color: #333;
+}
