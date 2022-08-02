@@ -21,7 +21,7 @@ code {
 .Root-flex {
     margin: 0;
     height: 100%;
-    overflow: auto;
+    overflow: no-scroll;
 }
 
 :root {

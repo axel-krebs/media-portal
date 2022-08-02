@@ -10,7 +10,7 @@ import './Layout.css'
 function Layout(props) {
     let device = props['device'];
     return (
-        <div className={`Center-container-flex ${device['cssThemeClass']}`}>
+        <div id="hmf_box" className={`Center-container-flex ${device['cssThemeClass']}`}>
             <Header theme={device['cssThemeClass']} />
             <Main device={device} />
             <Footer theme={device['cssThemeClass']} />

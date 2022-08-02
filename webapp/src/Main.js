@@ -16,7 +16,7 @@ import Login from './Login'
 function Main(props) {
     let device = props['device'];
     let theme = device['cssThemeClass'];
-    let menu = (device['desc'] == 'mobile_XL') ? <Breadcrumbs /> : <Menu theme={ theme } />;
+    let menu = (device['desc'] == 'mobile_XL') ? <Breadcrumbs theme={ theme } /> : <Menu theme={ theme } />;
     let navigation = (device['desc'] == 'mobile_XL') ? <Menu theme={ theme } /> : <div></div>;
     return (
         <main role="main" className={`Main-style-flex ${theme}`}>

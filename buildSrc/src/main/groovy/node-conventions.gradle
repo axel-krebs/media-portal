@@ -31,7 +31,7 @@ npm_install {
 }
 
 npm_update {
-    args = ['--production', '--loglevel', 'warn']
+    args = ['--production', '--loglevel', 'warn', '--location=global']
 }
 
 yarn_cache_clean {
@@ -53,23 +53,14 @@ tasks.yarn {
     }
 }
 
-ext.testTaskUsingNpx = tasks.register("NPX_command_mocha", NpxTask).configure { task ->
-    dependsOn(tasks.npmInstall)
-    task.command = "mocha"
-    args = ["test", "--grep", "should say hello"]
-    task.ignoreExitValue = false
-    //task.environment = mapOf("MY_CUSTOM_VARIABLE" to "hello")
-    task.workingDir = projectDir
-    execOverrides {
-        standardOutput = System.out
-    }
-    inputs.dir("node_modules")
-    inputs.file("package.json")
-    inputs.dir("src")
-    inputs.dir("test")
-    outputs.upToDateWhen {
-        true
-    }
+ext.cleanTaskUsingNpm = tasks.register("NPM_call_clean", NpmTask).configure { task ->
+    task.npmCommand = ["run","clean"]
+}
+
+
+ext.startTaskUsingNpm = tasks.register("NPM_call_start", NpmTask).configure { task ->
+    task.npmCommand = ["run","start"]
+    task.environment = [ "PORT" : "3003" ]
 }
 
 ext.testTaskUsingNpm = tasks.register("NPM_call_test", NpmTask).configure { task ->
@@ -91,6 +82,19 @@ ext.testTaskUsingNpm = tasks.register("NPM_call_test", NpmTask).configure { task
     }
 }
 
+ext.buildTaskUsingYarn = tasks.register("YARN_call_build", YarnTask).configure { task ->
+    dependsOn(tasks.npmInstall)
+    task.yarnCommand = ["run", "build"]
+    args = ["--out-dir", "${buildDir}/yarn-output", "--location=global"]
+    inputs.dir("src")
+    outputs.dir("${buildDir}/yarn-output")
+}
+
+ext.startTaskUsingYarn = tasks.register("YARN_call_start", YarnTask).configure { task ->
+    task.yarnCommand = ["run", "start"]
+    args = ["PORT=3003"]
+}
+
 ext.testTaskUsingYarn = tasks.register("YARN_call_test", YarnTask).configure { task ->
     dependsOn(tasks.npmInstall)
     task.yarnCommand = ["run", "test"]
@@ -108,36 +112,6 @@ ext.testTaskUsingYarn = tasks.register("YARN_call_test", YarnTask).configure { t
     outputs.upToDateWhen {
         true
     }
-}
-
-// run on nodejs
-tasks.register("run", NodeTask).configure { task ->
-    //dependsOn(ext.testTaskUsingNpx, ext.testTaskUsingNpm, ext.testTaskUsingYarn)
-    task.script = file("src/main.js")
-    args = ["Bobby"]
-    task.ignoreExitValue = false
-    // environment = mapOf("MY_CUSTOM_VARIABLE" to "hello"))
-    task.workingDir = projectDir
-    execOverrides {
-        standardOutput = System.out
-    }
-    inputs.dir("src")
-    outputs.upToDateWhen {
-        false
-    }
-}
-
-ext.buildTaskUsingYarn = tasks.register("YARN_call_build", YarnTask).configure { task ->
-    dependsOn(tasks.npmInstall)
-    task.yarnCommand = ["run", "build"]
-    args = ["--out-dir", "${buildDir}/yarn-output", "--location=global"]
-    inputs.dir("src")
-    outputs.dir("${buildDir}/yarn-output")
-}
-
-ext.startTaskUsingYarn = tasks.register("YARN_call_start", YarnTask).configure { task ->
-    task.yarnCommand = ["run", "start"]
-    args = ["PORT=3003"]
 }
 
 ext.buildTaskUsingNpx = tasks.register("NPX_command_babel", NpxTask).configure { task ->
@@ -161,11 +135,41 @@ ext.buildTaskUsingNpm = tasks.register("NPM_call_build", NpmTask).configure { ta
     outputs.dir("${buildDir}/npm-output")
 }
 
-ext.startTaskUsingNpm = tasks.register("NPM_call_start", NpmTask).configure { task ->
-    task.npmCommand = ["run","start"]
-    task.environment = [ "PORT" : "3003" ]
+ext.testTaskUsingNpx = tasks.register("NPX_command_mocha", NpxTask).configure { task ->
+    dependsOn(tasks.npmInstall)
+    task.command = "mocha"
+    args = ["test", "--grep", "should say hello"]
+    task.ignoreExitValue = false
+    //task.environment = mapOf("MY_CUSTOM_VARIABLE" to "hello")
+    task.workingDir = projectDir
+    execOverrides {
+        standardOutput = System.out
+    }
+    inputs.dir("node_modules")
+    inputs.file("package.json")
+    inputs.dir("src")
+    inputs.dir("test")
+    outputs.upToDateWhen {
+        true
+    }
 }
 
+// run on nodejs; there is no 'main.js' yet..
+tasks.register("run", NodeTask).configure { task ->
+    //dependsOn(ext.testTaskUsingNpx, ext.testTaskUsingNpm, ext.testTaskUsingYarn)
+    task.script = file("src/main.js")
+    args = ["Bobby"]
+    task.ignoreExitValue = false
+    // environment = mapOf("MY_CUSTOM_VARIABLE" to "hello"))
+    task.workingDir = projectDir
+    execOverrides {
+        standardOutput = System.out
+    }
+    inputs.dir("src")
+    outputs.upToDateWhen {
+        false
+    }
+}
 
 tasks.register("ZIP_package", Zip).configure { task ->
     archiveFileName = "app.zip"

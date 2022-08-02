@@ -29,11 +29,12 @@
 
 .Tablet .Menu-container-flex {
     height: 50px;
-    background-color: #ccc;
+    background-color: rgba(102, 102, 153, 0.3);
+     color: #66ffff;
 }
 
 .Notebook .Menu-container-flex {
-    background-color: #def;
     padding-left: var(--left-padding);
     padding-right: var(--right-padding);
+    background-color: rgba(102, 102, 153, 0.3);
 }

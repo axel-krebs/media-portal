@@ -1,36 +1,50 @@
 /* This applies to the Layout-components Header-Main-Footer that take all the screen surface. */
 .Center-container-flex {
-    overflow: auto;
+    overflow: scroll;
     height: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
 }
 
-/*div {
-    background-color: var(--background_color);
-}*/
-
-/* Smartphone theming */
-.Smartphone {
-
-}
-
-/* Tablet theming */
-.Tablet {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-    box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
-    overflow: none;
-}
-
-/* Notebook theming */
+/* General Notebook theming */
 .Notebook {
-    background-image: url("images/unsplash.jpg");
+
+}
+
+/* Background of the header-main-footer-box for Notebooks */
+div#hmf_box.Notebook {
+    background-image: url("images/caribbean-beach-wallpaper.jpg");
     background-size: cover;
     -ms-background-size: cover;
     -o-background-size: cover;
     -moz-background-size: cover;
     -webkit-background-size: cover;
+}
+
+/* General Tablet theming */
+.Tablet {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+
+}
+
+/* Background of the header-main-footer-box for Tablets */
+div#hmf_box.Tablet {
+    background-image: url("images/beach.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: none;
+}
+
+/* General Smartphone theming */
+.Smartphone {
+
+}
+
+/* Background of the header-main-footer-box for Smartphones */
+div#hmf_box.Smartphone {
+    background-color: #000;
 }
