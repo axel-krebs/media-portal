@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './modules/index';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import './css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

@@ -41,6 +41,11 @@
      color: #66ffff;
 }
 
+div#menu_box.Tablet {
+
+}
+
+
 .Notebook .Menu-container-flex {
     padding-left: var(--left-padding);
     padding-right: var(--right-padding);
