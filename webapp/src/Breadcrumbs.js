@@ -1,11 +1,17 @@
 import React from 'react';
-import { DEVICE_TYPES_DISPLAY_PROPERTIES } from './Globals'
 import './Breadcrumbs.css'
+import { Link } from "react-router-dom";
+import HouseIcon from './media/solid/house.svg'
 
 function Breadcrumbs(props) {
+
     return (
         <div className={`Breadcrumbs-container-flex ${props['theme']}`}>
-            <a href="#">Home</a> / <a href="#">Features</a>
+            <Link to="/">
+                <img className="nav_icon" src={ HouseIcon } alt="Home"/>
+            </Link>
+            &nbsp;/&nbsp;
+            <Link to="#">Features</Link>
         </div>
     );
 }

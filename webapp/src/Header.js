@@ -1,6 +1,5 @@
 import React from 'react';
 import './Header.css'
-import './media/logo.svg'
 import { Link } from "react-router-dom";
 
 /* This must appear on the the top of the page, but shall be hidden when device is too small. */

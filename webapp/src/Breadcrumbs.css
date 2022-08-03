@@ -1,6 +1,5 @@
 .Breadcrumbs-container-flex {
     flex: 0 auto;
-    background-color: #eee;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -12,6 +11,12 @@
 }
 
 .Notebook .Breadcrumbs-container-flex {
-    height: 36px;
+    height: 40px;
     padding-left: var(--left-padding);
+    background-color: rgba(102, 102, 153, 0.2);
+}
+
+.nav_icon {
+    height: 22px;
+    width: 22px;
 }

@@ -9,9 +9,6 @@ function Welcome(props) {
         <p>Cover<br /> is<br /> a<br /> one-page<br /> template<br /> for<br /> building<br /> simple<br /> and<br />
          beautiful<br /> home<br /> pages.<br /> Download,<br /> edit<br /> the<br /> text,<br />and<br /> add<br />
           your<br /> own<br /> fullscreen<br /> background<br /> photo<br />to<br /> make<br /> it<br /> your<br /> own.</p>
-        <p>
-          <a href="#">Learn more</a>
-        </p>
       </div>
     );
 }

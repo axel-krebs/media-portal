@@ -3,15 +3,21 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import App from './App';
+import { Provider } from 'react-redux';
+import store from './modules/index';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+/* Routes defined in Main.js */
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+    <Provider store={ store } >
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

@@ -3,7 +3,7 @@ import { DEVICE_TYPES_DISPLAY_PROPERTIES } from './Globals'
 import Layout from './Layout'
 import { useMediaQuery } from 'react-responsive'
 
-/* Start the application: Initialize data handling and layout. */
+/* Start the application: Initialize layout. */
 function App() {
     const isMobileDevice = useMediaQuery({ query: 'hover: none'});
     const isTabletDevice = useMediaQuery({ query: 'only screen and (min-width: 600px)' });

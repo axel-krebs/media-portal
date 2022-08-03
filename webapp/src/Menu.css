@@ -1,17 +1,25 @@
 .Menu-container-flex {
-    flex: 0 0 auto;
+    flex: 0 1 auto;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .menu_head_entry {
-
+    flex: .3 wrap;
+    min-width: 333px;
+    max-width: 500px;
+    padding: 15px;
 }
 
-.menu_head_entry h3 {
-
+.menu_head_entry h2 {
+    text-transform: uppercase;
+    font-size: 1em;
+    overflow-wrap: break-word;
 }
 
-.menu_head_entry p {
-
+.menu_head_entry a {
+    text-decoration: none;
+    color: black;
 }
 
 .menu_head_entry ul {
@@ -28,7 +36,7 @@
 }
 
 .Tablet .Menu-container-flex {
-    height: 50px;
+    height: 60px;
     background-color: rgba(102, 102, 153, 0.3);
      color: #66ffff;
 }

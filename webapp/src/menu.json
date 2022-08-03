@@ -1,0 +1,111 @@
+[
+  {
+    "top": "menu_title_company",
+    "entries": [
+      {
+        "entry": "menu_title_company_profile",
+        "link": "company_profile"
+      },
+      {
+        "entry": "shareholder_structure",
+        "link": "shareholder_structure"
+      },
+      {
+        "entry": "management",
+        "link": "management"
+      },
+      {
+        "entry": "supervisory_board",
+        "link": "supervisory_board"
+      }
+    ,
+      {
+        "entry": "essentials",
+        "link": "essentials"
+      }
+    ,
+      {
+        "entry": "head_quarters",
+        "link": "head_quarters"
+      }
+    ,
+      {
+        "entry": "cultural_affairs",
+        "link": "cultural_affairs"
+      }
+    ,
+      {
+        "entry": "history",
+        "link": "history"
+      }
+    ,
+      {
+        "entry": "public_affairs",
+        "link": "public_affairs"
+      }
+    ]
+  },
+  {
+    "top": "menu_title_hdtv",
+    "entries" : [
+      {
+        "entry": "hdtv_overview",
+        "link": "hdtv_overview"
+      }
+    ]
+  },
+  {
+    "top": "menu_title_places",
+    "entries" : [
+
+    ]
+  },
+  {
+    "top": "menu_title_news_media",
+    "entries" : [
+
+    ]
+  },
+  {
+    "top": "menu_title_customers",
+    "entries" : [
+
+    ]
+  },
+  {
+    "top": "menu_title_governmental",
+    "entries" : [
+
+    ]
+  },
+  {
+    "top": "menu_title_partners",
+    "entries" : [
+
+    ]
+  },
+  {
+    "top": "menu_title_awards",
+    "entries" : [
+
+    ]
+  },
+  {
+    "top": "menu_title_environmental",
+    "entries" : [
+
+    ]
+  },
+  {
+    "top": "menu_title_regions_languages",
+    "entries" : [
+
+    ]
+  },
+  {
+    "top": "menu_title_contact",
+    "entries" : [
+
+    ]
+  }
+]

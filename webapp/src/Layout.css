@@ -1,7 +1,8 @@
 /* This applies to the Layout-components Header-Main-Footer that take all the screen surface. */
 .Center-container-flex {
-    overflow: scroll;
     height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;

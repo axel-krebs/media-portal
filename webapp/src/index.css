@@ -10,7 +10,6 @@ body {
     width: 100%;
     margin: 0px;
     padding: 0px;
-
 }
 
 code {
@@ -21,7 +20,6 @@ code {
 .Root-flex {
     margin: 0;
     height: 100%;
-    overflow: no-scroll;
 }
 
 :root {
